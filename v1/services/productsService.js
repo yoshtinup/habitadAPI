@@ -24,11 +24,11 @@ export const productsService = {
     },
       
     createNewProduct : async (product) => {
-        const sql = "INSERT INTO sensor (temperatura, humedad, luz, aire) VALUES (?, ?, ?, ?)";
-        const params = [product.temperatura, product.humedad, product.luz, product.aire];
+        const sql = "INSERT INTO sensor (temperature, humidity, co2, luxometer, container_id) VALUES (?, ?, ?, ?, ?)";
+        const params = [product.temperature, product.humidity, product.co2, product.luxometer, product.container_id];
         try {
             const [result] = await db.query(sql, params);
-            return {id: result.insertId, temperatura: product.temperatura, humedad: product.humedad, luz: product.luz, aire: product.aire}
+            return {id: result.insertId, temperature: product.temperature, humidity: product.humidity, co2: product.co2, luxometer: product.luxometer, container_id: product.container_id}
         } catch (error) {
             return null;
         }
