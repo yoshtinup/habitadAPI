@@ -1,8 +1,8 @@
 import {db} from '../../database/mysql.js'
 
-export const productsService = {
+export const userService = {
     getAllProducts : async () => {
-        const sql = "SELECT * FROM sensor";
+        const sql = "SELECT * FROM user";
         try {
             const [data] = await db.query(sql, []);
             return data;
@@ -12,7 +12,7 @@ export const productsService = {
     },
       
     getOneProduct : async (id) => {
-        const sql = "SELECT * FROM sensor WHERE id=?";
+        const sql = "SELECT * FROM user WHERE id=?";
         const params = [id];
         try {
             const [result] = await db.query(sql, params);
@@ -24,11 +24,11 @@ export const productsService = {
     },
       
     createNewProduct : async (product) => {
-        const sql = "INSERT INTO sensor (temperatura, humedad, luz, aire) VALUES (?, ?, ?, ?)";
-        const params = [product.temperatura, product.humedad, product.luz, product.aire];
+        const sql = "INSERT INTO user (name, gmail, password) VALUES (?, ?, ?)";
+        const params = [product.name, product.gmail, product.password];
         try {
             const [result] = await db.query(sql, params);
-            return {id: result.insertId, temperatura: product.temperatura, humedad: product.humedad, luz: product.luz, aire: product.aire}
+            return {id: result.insertId, name: product.name, gmail: product.gmail, password: product.password}
         } catch (error) {
             return null;
         }
@@ -39,7 +39,7 @@ export const productsService = {
     },
       
     deleteOneProduct : async (id) => {
-        const sql = 'DELETE FROM sensor WHERE id = ?';
+        const sql = 'DELETE FROM data WHERE id = ?';
         const params = [id];
         try {
             const result = await db.query(sql, params);
